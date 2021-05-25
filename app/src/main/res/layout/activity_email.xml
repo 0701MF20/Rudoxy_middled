@@ -1,0 +1,49 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_margin="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email Detail"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        tools:ignore="HardcodedText"
+        android:gravity="center"
+        android:background="#2aa3ff"
+        />
+    <EditText
+        android:id="@+id/name_id"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:textColor="#ffcc11"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:inputType="textEmailAddress"
+        tools:ignore="HardcodedText"
+        android:importantForAutofill="no" />
+    <EditText
+        android:id="@+id/message_id"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Message"
+        android:textColor="#ffcc11"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:inputType="textLongMessage"
+        tools:ignore="HardcodedText"
+        android:importantForAutofill="no" />
+    <Button
+        android:layout_margin="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send"
+        android:onClick="update"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:layout_gravity="center"
+        tools:ignore="HardcodedText" />
+
+</LinearLayout>
