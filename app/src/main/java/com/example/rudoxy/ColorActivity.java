@@ -12,14 +12,16 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//commit 2
 public class ColorActivity extends AppCompatActivity
 {
     private MediaPlayer mp1;
     public void ResourceRelease()
     {
-        mp1.release();
-        mp1=null;
+        if(mp1!=null) {
+            mp1.release();
+            mp1 = null;
+        }
     }
     @Override
     protected void onCreate(Bundle savedInstantState)
@@ -60,8 +62,9 @@ public class ColorActivity extends AppCompatActivity
                 mp1.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                  @Override
                  public void onCompletion(MediaPlayer mp) {
-                     mp.release();
-                     mp=null;
+                    // mp.release();
+                     //mp=null;
+                     ResourceRelease();
                  }
              });
             }
