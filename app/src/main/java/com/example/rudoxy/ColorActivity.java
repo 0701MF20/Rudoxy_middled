@@ -70,6 +70,19 @@ public class ColorActivity extends AppCompatActivity
             }
         });
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mp1.pause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mp1.pause();
+        ResourceRelease();
+    }
 }
 //CONTINUE PREV 1
 /* String []colors=new String[10];
