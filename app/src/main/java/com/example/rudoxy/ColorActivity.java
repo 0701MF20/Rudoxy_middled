@@ -1,8 +1,11 @@
 package com.example.rudoxy;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -39,6 +42,11 @@ public class ColorActivity extends AppCompatActivity
         ami.add(new Word("Gray", "Topoppi","Bhura(Grey)",R.drawable.color_gray,R.raw.color_gray));
         ami.add(new Word("Black","Kululli","Kaala",R.drawable.color_black,R.raw.color_black));
         ami.add(new Word("White","Kelelli","Safed",R.drawable.color_white,R.raw.color_white));
+
+
+
+
+
         NumberAdapter n1=new NumberAdapter(this,ami,R.color.Color_color);
         ListView L1=(ListView)findViewById(R.id.colorId);
         L1.setAdapter(n1);
@@ -69,6 +77,49 @@ public class ColorActivity extends AppCompatActivity
              });
             }
         });
+
+        //Audio manager instance------**********************--------------------------
+        AudioManager am1=(AudioManager)getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+        AudioManager.OnAudioFocusChangeListener audioFocusListener=new AudioManager.OnAudioFocusChangeListener() {
+            @Override
+            public void onAudioFocusChange(int focusChange) {
+                if(focusChange==AudioManager.AUDIOFOCUS_LOSS)
+                {
+                  mp1.stop();
+                }
+                else if(focusChange==AudioManager.AUDIOFOCUS_LOSS_TRANSIENT)
+                {
+                 mp1.pause();
+                }
+                else if(focusChange==AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK)
+                {
+                 //
+                }
+                else if(focusChange==AudioManager.AUDIOFOCUS_GAIN)
+                {
+                  mp1.start();
+                }
+                else if(focusChange==AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
+                {
+                    mp1.start();
+                }
+                else if(focusChange==AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE)
+                {
+                  //
+                }
+                else if(focusChange==AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK)
+                {
+                //
+                }
+            }
+        }
+        int result=am1.requestAudioFocus(audioFocusListener,AudioManager.STREAM_MUSIC,AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+        if(result==AudioManager.AUDIOFOCUS_REQUEST_GRANTED)
+        {
+         mp1.start();
+        }
+        am1.abandonAudioFocus(audioFocusListener);
+
     }
 
     @Override
