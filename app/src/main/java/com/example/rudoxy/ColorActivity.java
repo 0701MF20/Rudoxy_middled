@@ -1,6 +1,5 @@
 package com.example.rudoxy;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -20,14 +19,6 @@ public class ColorActivity extends AppCompatActivity
 {
     private MediaPlayer mp1;
     private AudioManager am1;
-    public void ResourceRelease()
-    {
-        if(mp1!=null) {
-            mp1.release();
-            mp1 = null;
-            am1.abandonAudioFocus(audiofocuslisteners);
-        }
-    }
     private AudioManager.OnAudioFocusChangeListener audiofocuslisteners=new AudioManager.OnAudioFocusChangeListener() {
         @Override
         public void onAudioFocusChange(int focusChange) {
@@ -52,7 +43,14 @@ public class ColorActivity extends AppCompatActivity
             }
         }
     };
-
+    public void ResourceRelease()
+    {
+        if(mp1!=null) {
+            mp1.release();
+            mp1 = null;
+            am1.abandonAudioFocus(audiofocuslisteners);
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstantState)
     {
@@ -81,7 +79,7 @@ public class ColorActivity extends AppCompatActivity
                 int result = am1.requestAudioFocus(audiofocuslisteners, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
                 if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED)
                 {
-                    mp1 = MediaPlayer.create(ColorActivity.this, Audio1);
+                    mp1=MediaPlayer.create(ColorActivity.this, Audio1);
                 mp1.start();
                 mp1.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
@@ -102,6 +100,19 @@ public class ColorActivity extends AppCompatActivity
     protected void onPause() {
         super.onPause();
         mp1.pause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mp1.stop();
+        mp1.seekTo(0);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        mp1.start();
     }
 
     @Override
