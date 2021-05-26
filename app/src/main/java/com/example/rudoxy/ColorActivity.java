@@ -10,6 +10,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 //import java.util.List;
 //commit 2
+//try to play alarm your system will give audio focus to alarm app and as we click the item in our app then it slow the volume of alarm to represet the something function is happening with our app
 public class ColorActivity extends AppCompatActivity
 {
     private MediaPlayer mp1;
