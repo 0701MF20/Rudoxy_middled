@@ -86,21 +86,12 @@ public class ColorActivity extends AppCompatActivity
             }
             }
         });
-
-        //Audio manager instance------**********************--------------------------
     }
     @Override
     protected void onPause() {
         super.onPause();
         mp1.pause();
     }
-   @Override
-    protected void onStop() {
-        super.onStop();
-        mp1.stop();
-        mp1.seekTo(0);
-    }
-
     @Override
     protected void onRestart() {
         super.onRestart();
