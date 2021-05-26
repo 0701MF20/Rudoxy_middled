@@ -1,21 +1,53 @@
 package com.example.rudoxy;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import java.util.ArrayList;
-
 import static com.example.rudoxy.R.*;
 public class NumberActivity extends AppCompatActivity
 {
+    private MediaPlayer mp4;
+    private AudioManager am4;
+    private AudioManager.OnAudioFocusChangeListener audioFocusListener4=new AudioManager.OnAudioFocusChangeListener() {
+        @Override
+        public void onAudioFocusChange(int focusChange) {
+            if(focusChange==AudioManager.AUDIOFOCUS_LOSS_TRANSIENT||focusChange==AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK)
+            {
+                mp4.pause();
+            }
+            else if(focusChange==AudioManager.AUDIOFOCUS_GAIN||focusChange==AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
+            {
+                mp4.start();
+            }
+            else if(focusChange==AudioManager.AUDIOFOCUS_LOSS)
+            {
+               ResourceRelease();
+            }
+        }
+    };
+    public void ResourceRelease()
+    {
+        if(mp4!=null)
+        {
+            mp4.release();
+            mp4=null;
+           am4.abandonAudioFocus(audioFocusListener4);
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstantState)
     {
         super.onCreate(savedInstantState);
         setContentView(layout.activity_number);
-        ArrayList<Word> numberi= new ArrayList<>();
+        am4=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        final ArrayList<Word> numberi= new ArrayList<>();
         Word W1=new Word("One","Lutti","Ek", drawable.number_one, raw.number_one);
         numberi.add(W1);
         numberi.add(new Word("Two","Otiiko","Do", drawable.number_two, raw.number_two));
@@ -35,18 +67,47 @@ public class NumberActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                Word w4=numberi.get(position);
                int Audio4=w4.getmResorceAudio();
-               MediaPlayer mp4=MediaPlayer.create(NumberActivity.this,Audio4);
-               if(mp4.isPlaying())
+               int result4=am4.requestAudioFocus(audioFocusListener4,AudioManager.STREAM_MUSIC,AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+               if(result4==AudioManager.AUDIOFOCUS_REQUEST_GRANTED)
+               {
+                   ResourceRelease();
+                   mp4=MediaPlayer.create(NumberActivity.this, Audio4);
+                   mp4.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                       @Override
+                       public void onCompletion(MediaPlayer mp) {
+                           ResourceRelease();
+                       }
+                   });
+                   /*if(mp4.isPlaying())
                {
                    mp4.pause();
                }
                else
                {
                    mp4.start();
+               }*/
                }
             }
         });
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        mp4.start();
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mp4.pause();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mp4.stop();
+        ResourceRelease();
+    }
+
 }
 
 
