@@ -8,12 +8,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import java.util.ArrayList;
-import java.util.List;
+//import java.util.List;
 //commit 2
 public class ColorActivity extends AppCompatActivity
 {
     private MediaPlayer mp1;
-    private AudioManager am1=(AudioManager)getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+    private AudioManager am1;
     private AudioManager.OnAudioFocusChangeListener audiofocuslisteners=new AudioManager.OnAudioFocusChangeListener() {
         @Override
         public void onAudioFocusChange(int focusChange) {
@@ -53,7 +53,8 @@ public class ColorActivity extends AppCompatActivity
         super.onCreate(savedInstantState);
         setContentView(R.layout.activity_color);//
         //PREV 1 AND THEN PREV 2
-        ArrayList<Word> ami=new ArrayList<Word>();
+        am1=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        final ArrayList<Word> ami=new ArrayList<Word>();
         ami.add(new Word("Red", "Weṭeṭṭi","Laal",R.drawable.color_red,R.raw.color_red));
         ami.add(new Word("Mustard yellow", "Chiwiiṭә","Peela",R.drawable.color_mustard_yellow,R.raw.color_mustard_yellow));
         ami.add(new Word("Dusty yellow", "Topiisә","Peela",R.drawable.color_dusty_yellow,R.raw.color_dusty_yellow));
@@ -93,8 +94,7 @@ public class ColorActivity extends AppCompatActivity
         super.onPause();
         mp1.pause();
     }
-/*
-    @Override
+   @Override
     protected void onStop() {
         super.onStop();
         mp1.stop();
@@ -106,7 +106,6 @@ public class ColorActivity extends AppCompatActivity
         super.onRestart();
         mp1.start();
     }
-*/
     @Override
     protected void onDestroy() {
         super.onDestroy();
