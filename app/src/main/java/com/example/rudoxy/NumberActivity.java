@@ -21,6 +21,7 @@ public class NumberActivity extends AppCompatActivity
             if(focusChange==AudioManager.AUDIOFOCUS_LOSS_TRANSIENT||focusChange==AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK)
             {
                 mp4.pause();
+                mp4.seekTo(0);
             }
             else if(focusChange==AudioManager.AUDIOFOCUS_GAIN||focusChange==AudioManager.AUDIOFOCUS_GAIN_TRANSIENT)
             {
@@ -72,6 +73,7 @@ public class NumberActivity extends AppCompatActivity
                {
                    ResourceRelease();
                    mp4=MediaPlayer.create(NumberActivity.this, Audio4);
+                   mp4.start();
                    mp4.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                        @Override
                        public void onCompletion(MediaPlayer mp) {
