@@ -4,21 +4,16 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.List;
 //commit 2
 public class ColorActivity extends AppCompatActivity
 {
     private MediaPlayer mp1;
-    private AudioManager am1;
+    private AudioManager am1=(AudioManager)getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
     private AudioManager.OnAudioFocusChangeListener audiofocuslisteners=new AudioManager.OnAudioFocusChangeListener() {
         @Override
         public void onAudioFocusChange(int focusChange) {
@@ -84,8 +79,6 @@ public class ColorActivity extends AppCompatActivity
                 mp1.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
-                        // mp.release();
-                        //mp=null;
                         ResourceRelease();
                     }
                 });
@@ -95,13 +88,12 @@ public class ColorActivity extends AppCompatActivity
 
         //Audio manager instance------**********************--------------------------
     }
-
     @Override
     protected void onPause() {
         super.onPause();
         mp1.pause();
     }
-
+/*
     @Override
     protected void onStop() {
         super.onStop();
@@ -114,7 +106,7 @@ public class ColorActivity extends AppCompatActivity
         super.onRestart();
         mp1.start();
     }
-
+*/
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -122,6 +114,69 @@ public class ColorActivity extends AppCompatActivity
         ResourceRelease();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //CONTINUE PREV 1
 /* String []colors=new String[10];
         colors[0]="Red";
