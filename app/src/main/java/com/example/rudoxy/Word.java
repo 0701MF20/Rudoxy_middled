@@ -18,9 +18,9 @@ public class Word
         mHindiWord=HindiWord;
         mResourceAudio=ResourceAudioId;
     }
-    public Word(String EnglishWord,String MiwokWord,String HindiWord,int ResourceId)
+    public Word(String EnglishWord,String MiwokWord,String HindiWord,int ResourceAudioId)
     {
-        mResourceId=ResourceId;
+        mResourceAudio=ResourceAudioId;
         mEnglishWord = EnglishWord;
         mMiwokWord=MiwokWord;
         mHindiWord=HindiWord;

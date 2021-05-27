@@ -111,11 +111,11 @@ public class FamilymemberActivity extends AppCompatActivity {
             }
         });
     }
-    @Override
+  /*  @Override
     protected void onDestroy() {
         super.onDestroy();
         ReleaseResource();
-    }
+    }*/
     @Override
     protected void onRestart() {
         super.onRestart();

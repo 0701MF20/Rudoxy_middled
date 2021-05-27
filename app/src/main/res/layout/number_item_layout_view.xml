@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:minHeight="132dp"
     android:id="@+id/numberLayoutId">
     <ImageView
         android:layout_width="132dp"
         android:layout_height="132dp"
         android:id="@+id/imageIdView"
-        android:scaleType="fitCenter"
         />
     <LinearLayout
         android:layout_width="match_parent"

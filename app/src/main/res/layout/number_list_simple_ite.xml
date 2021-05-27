@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/l1id"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -10,14 +11,21 @@
         android:layout_height="wrap_content"
         android:paddingStart="16dp"
         android:paddingTop="16dp"
-        android:id="@+id/no_digit_id"
+        android:id="@+id/english_id"
         tools:ignore="RtlSymmetry" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="16dp"
         android:paddingTop="16dp"
-        android:id="@+id/no_alphabet_id"
+        android:id="@+id/hindi_id"
+        tools:ignore="RtlSymmetry" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingTop="16dp"
+        android:id="@+id/miwok_id"
         tools:ignore="RtlSymmetry" />
 
 </LinearLayout>

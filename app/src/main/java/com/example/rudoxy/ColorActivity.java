@@ -98,12 +98,12 @@ public class ColorActivity extends AppCompatActivity
         super.onRestart();
         mp1.start();
     }
-    @Override
+    /*@Override
     protected void onDestroy() {
         super.onDestroy();
         mp1.pause();
         ResourceRelease();
-    }
+    }*/
 }
 
 

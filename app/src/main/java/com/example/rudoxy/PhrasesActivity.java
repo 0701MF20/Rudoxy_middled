@@ -11,8 +11,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 public class PhrasesActivity extends AppCompatActivity {
    private MediaPlayer mp5;
-   private AudioManager am2;
-   private AudioManager.OnAudioFocusChangeListener audiofocuslistener2=new AudioManager.OnAudioFocusChangeListener() {
+   private AudioManager am2l;
+   private AudioManager.OnAudioFocusChangeListener audiofocuslistener2l=new AudioManager.OnAudioFocusChangeListener() {
        @Override
        public void onAudioFocusChange(int focusChange) {
            if(focusChange==AudioManager.AUDIOFOCUS_LOSS)
@@ -36,14 +36,14 @@ public class PhrasesActivity extends AppCompatActivity {
        {
            mp5.release();
            mp5=null;
-           am2.abandonAudioFocus(audiofocuslistener2);
+           am2l.abandonAudioFocus(audiofocuslistener2l);
        }
    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phrases);
-        am2=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        am2l=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
         final ArrayList<Word> phrase=new ArrayList<Word>();
         phrase.add(new Word("Where are you going?", "minto wuksus","Tum kha jaa rhe ho",R.raw.phrase_where_are_you_going));
         phrase.add(new Word("What is your name?", "tinnә oyaase'nә","Tumhaara naam kya hai",R.raw.phrase_where_are_you_going));
@@ -61,11 +61,11 @@ public class PhrasesActivity extends AppCompatActivity {
         LN.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Word w5 = phrase.get(position);
-                int result2 = am2.requestAudioFocus(audiofocuslistener2, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
                 ReleaseResources();
+                Word w5 = phrase.get(position);
+                int result2 = am2l.requestAudioFocus(audiofocuslistener2l, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+                int Audio4=w5.getmResorceAudio();
                 if (result2 == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-                    int Audio4=w5.getmResorceAudio();
                     mp5=MediaPlayer.create(PhrasesActivity.this, Audio4);
                     mp5.start();
                     mp5.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -100,11 +100,12 @@ public class PhrasesActivity extends AppCompatActivity {
         mp5.start();
     }
 
-    @Override
+   /* @Override
     protected void onDestroy() {
         super.onDestroy();
+        mp5.pause();
         ReleaseResources();
-    }
+    }*/
 }
 
 
