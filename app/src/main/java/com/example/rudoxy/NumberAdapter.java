@@ -12,11 +12,11 @@ import androidx.core.content.ContextCompat;
 import java.util.ArrayList;
 public class NumberAdapter extends ArrayAdapter<Word>
 {
-     private int mImageResourceId;//COLOR
-     public NumberAdapter(Context context,ArrayList<Word> inosWord,int ImageResourceId)
+     private int mColorResourceId;//COLOR
+     public NumberAdapter(Context context,ArrayList<Word> inosWord,int ColorResourceId)
     {
         super(context,0,inosWord);
-        mImageResourceId=ImageResourceId;
+        mColorResourceId=ColorResourceId;
     }
  /*   public NumberAdapter(Context context, ArrayList<Word> inosWord)
     {
@@ -45,13 +45,12 @@ public class NumberAdapter extends ArrayAdapter<Word>
         }
         else
         {
-           iv2.setImageResource(m1.getmResourceId());
            iv2.setVisibility(View.GONE);
            // iv2.setVisibility(View.INVISIBLE);
         }
         View textViewSubPart=listItemViews.findViewById(R.id.numberLayoutSubPartId);
 
-        int color= ContextCompat.getColor(getContext(),mImageResourceId);
+        int color= ContextCompat.getColor(getContext(),mColorResourceId);
         textViewSubPart.setBackgroundColor(color);
         /*TextView num_word=(TextView)listItemViews.findViewById(R.id.nosWordId);
         num_word.setText(m1.getNosWord());*/
