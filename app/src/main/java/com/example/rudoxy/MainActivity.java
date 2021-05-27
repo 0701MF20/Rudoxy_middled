@@ -1,6 +1,7 @@
 package com.example.rudoxy;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,6 +21,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener
             public void onClick(View v) {
                 Intent colorIntent=new Intent(MainActivity.this,ColorActivity.class);
                 startActivity(colorIntent);
+            }
+        });
+        TextView emails=(TextView)findViewById(R.id.email_text_view);
+        emails.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Intent e=new Intent(MainActivity.this,EmailActivity.class);
+               startActivity(e);
             }
         });
         TextView phraseText=(TextView)findViewById(R.id.phraseTextViewId);
