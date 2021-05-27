@@ -48,7 +48,7 @@ public class NumberAdapter extends ArrayAdapter<Word>
            // iv2.setImageResource(m1.getmResourceId());
             iv2.setVisibility(View.GONE);
         }
-   View textViewSubPart=listItemViews.findViewById(R.id.numberLayoutSubPartId);
+        View textViewSubPart=listItemViews.findViewById(R.id.numberLayoutSubPartId);
         int color= ContextCompat.getColor(getContext(),mImageResourceId);
         textViewSubPart.setBackgroundColor(color);
         /*TextView num_word=(TextView)listItemViews.findViewById(R.id.nosWordId);

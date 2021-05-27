@@ -1,5 +1,8 @@
 package com.example.rudoxy;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -7,11 +10,42 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import java.util.ArrayList;
 public class PhrasesActivity extends AppCompatActivity {
+   private MediaPlayer mp5;
+   private AudioManager am2;
+   private AudioManager.OnAudioFocusChangeListener audiofocuslistener2=new AudioManager.OnAudioFocusChangeListener() {
+       @Override
+       public void onAudioFocusChange(int focusChange) {
+           if(focusChange==AudioManager.AUDIOFOCUS_LOSS)
+           {
+              ReleaseResources();
+           }
+           else if(focusChange==AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK||focusChange==AudioManager.AUDIOFOCUS_LOSS_TRANSIENT)
+           {
+             mp5.pause();
+             mp5.seekTo(0);
+           }
+           else if(focusChange==AudioManager.AUDIOFOCUS_GAIN)
+           {
+               mp5.start();
+           }
+       }
+   };
+   public void ReleaseResources()
+   {
+       if(mp5!=null)
+       {
+           mp5.release();
+           mp5=null;
+           am2.abandonAudioFocus(audiofocuslistener2);
+       }
+
+   }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phrases);
-        ArrayList<Word> phrase=new ArrayList<Word>();
+        am2=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        final ArrayList<Word> phrase=new ArrayList<Word>();
         phrase.add(new Word("Where are you going?", "minto wuksus","Tum kha jaa rhe ho",R.raw.phrase_where_are_you_going));
         phrase.add(new Word("What is your name?", "tinnә oyaase'nә","Tumhaara naam kya hai",R.raw.phrase_where_are_you_going));
         phrase.add(new Word("My name is...", "oyaaset...","Mera naam hai ...",R.raw.phrase_my_name_is));
@@ -22,22 +56,33 @@ public class PhrasesActivity extends AppCompatActivity {
         phrase.add(new Word("I’m coming.", "әәnәm","Main aa rha hoon",R.raw.phrase_im_coming));
         phrase.add(new Word("Let’s go.", "yoowutis","Chalo chaalte hain",R.raw.phrase_lets_go));
         phrase.add(new Word("Come here.", "әnni'nem","Idhar aao",R.raw.phrase_come_here));
-        NumberAdapter na=new NumberAdapter(this,phrase, R.color.phrases_color);
+        NumberAdapter na=new NumberAdapter(this,phrase,R.color.phrases_color);
         ListView LN=(ListView)findViewById(R.id.phraseId);
         LN.setAdapter(na);
         LN.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Word w5=phrase.get(position);
-                int Audio4=w5.getmResorceAudio();
-                MediaPlayer mp5=MediaPlayer.create(PhrasesActivity.this,Audio4);
-                if(mp5.isPlaying())
+                Word w5 = phrase.get(position);
+                int result2 = am2.requestAudioFocus(audiofocuslistener2, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+                if (result2 == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+                    ReleaseResources();
+                    int Audio4=w5.getmResorceAudio();
+                    mp5=MediaPlayer.create(PhrasesActivity.this, Audio4);
+                    mp5.start();
+                    mp5.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            ReleaseResources();
+                        }
+                    });
+                /* if(mp5.isPlaying())
                 {
                     mp5.pause();
                 }
                 else
                 {
                     mp5.start();
+                }*/
                 }
             }
         });
