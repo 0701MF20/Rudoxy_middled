@@ -45,10 +45,12 @@ public class NumberAdapter extends ArrayAdapter<Word>
         }
         else
         {
-           // iv2.setImageResource(m1.getmResourceId());
-            iv2.setVisibility(View.GONE);
+           iv2.setImageResource(m1.getmResourceId());
+           iv2.setVisibility(View.GONE);
+           // iv2.setVisibility(View.INVISIBLE);
         }
         View textViewSubPart=listItemViews.findViewById(R.id.numberLayoutSubPartId);
+
         int color= ContextCompat.getColor(getContext(),mImageResourceId);
         textViewSubPart.setBackgroundColor(color);
         /*TextView num_word=(TextView)listItemViews.findViewById(R.id.nosWordId);
