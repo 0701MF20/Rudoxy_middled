@@ -38,7 +38,6 @@ public class PhrasesActivity extends AppCompatActivity {
            mp5=null;
            am2.abandonAudioFocus(audiofocuslistener2);
        }
-
    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +63,8 @@ public class PhrasesActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Word w5 = phrase.get(position);
                 int result2 = am2.requestAudioFocus(audiofocuslistener2, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+                ReleaseResources();
                 if (result2 == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
-                    ReleaseResources();
                     int Audio4=w5.getmResorceAudio();
                     mp5=MediaPlayer.create(PhrasesActivity.this, Audio4);
                     mp5.start();
@@ -87,6 +86,24 @@ public class PhrasesActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mp5.pause();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        mp5.start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ReleaseResources();
     }
 }
 
